@@ -1,30 +1,59 @@
-#include<stdio.h>
-/*matrice d'adjacence*/
+#include <stdio.h>
+#include <stdlib.h>
+/*Representation par matrice d'adjancence*/
 typedef struct{
   int nbsommet;
-  int nbarcs;
+  int **matrice;
+}MatriceAdj;
+typedef struct{
+  int nbsommet;
+  int nbarret;
+  int **matrice;
+}MatriceInci_arr;
+typedef struct{
+  int nbsommet;
+  int nbarc;
+  int **matrice;
+}MatriceInci_arc;
+/* Liste de successeurs*/
+typedef struct{
+  int nbsommet;
   int *fs;
   int *aps;
+  //cout si valué
 }Filesuccesseur;
-/*representation chainée*/
+/*Liste d'adjancence matrice*/
 typedef struct cellule{
-  int somsucc;
-  sctruct cellule* suivant;
-}*Liste;
+  int somSuccesseur;
+  struct cellule* suivant;
+}Liste;
 typedef struct{
   int nbsommet;
-  Liste *tabAdj;
-}ListeAdjacence;
-/*Liste adjacence successeurs & predecesseurs*/
-typedef struct cellule_adjacence{
+  Liste* tabAdj;
+}ListeAdj;
+/*representation chainnée Liste successeurs predecesseurs*/
+typedef struct celluleAdj{
   int somAdj;
-  struct cellule_adjacence *suivant;
-}*Liste_sp;//sp: successeurs & predecesseurs
+  struct celluleAdj* suivant;
+}*ListeAdj_;
 typedef struct{
-  Liste_sp lsuccesseur;
-  Liste_sp lpredecesseur;
-}Liste_succpred;
+  Liste lpred;
+  Liste lsucc;
+}ListePredSuc;
 typedef struct{
   int nbsommet;
-  Liste_succpred *tabSp;
-}Liste_adj_succpred;
+  ListePredSuc* tabAdjSP;//SP successeurs predecesseur
+}ListeAdjSucPred;
+/*Liste pricipale*/
+typedef struct cellule *Listesuc;
+typedef struct listPrincipale *ListePrincipale;
+struct listPrincipale{
+  int numsommet;
+  ListePrincipale suivant;// suivant Liste somSuccesseur
+  Listesuc lsucc;
+};
+struct cellule{
+  ListePrincipale succ;
+  /*cout*/
+  Listesuc suivant;//suivant liste successeurs
+}
