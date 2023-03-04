@@ -5,9 +5,9 @@ un graphe  represeter par sa file de successeurs
 //2)determiner les successeurs d'un sommet donné
 /*Pseudo code*/
 /*
-procedure liste_succsseur_ls(s,g)
+procedure liste_succsseur_ls(g,s)
 PF:
-  s:entier(E)
+  s:entier(E) sommet
   g:Filesuccesseur
 Debut:
   iaps ←g.APS[s]
@@ -19,17 +19,21 @@ Debut:
   Finpour
 FIN
 */
-void liste_succsseur_ls(int s, Filesuccesseur g){
-  int iaps=g.APS[s+1];
-  int nbsucc=iaps-g.APS[s];
+void liste_succsseur_ls(Filesuccesseur g,int s){
+  int iaps=g.aps[s+1];
+  int nombreSuccesseurs=iaps-g.aps[s];
   int t;
-  for(int i=0; i<nbsucc;i++){
-    t=g.FS[iaps];
+  Liste listeSuccesseursFileSuccesseurs;
+  for(int i=0; i<nombreSuccesseurs; i++){
+    t=g.fs[iaps];
     iaps+=1;
-    traiter(t);
+    insert_triee(t, listeSuccesseursFileSuccesseurs);
   }
+  printf("\n\t\tListe de successeurs file de successeurs: \n");
+  affiche_liste(listeSuccesseursFileSuccesseurs);
 }
-/*
+/*Exercice4*/
+/*2
 func conv_matAdj_Fs(ma)→Filesuccesseur
   PF:
   ma:MatriceAdj(E)
@@ -56,24 +60,24 @@ func conv_matAdj_Fs(ma)→Filesuccesseur
   Fin
 */
 Filesuccesseur conv_matAdj_Fs(MatriceAdj ma){
-  int n=nbsom(m);
-  int p=nbarcs(ma);
-  fs=allocSFS(n,p);
+  int n=ma.nbSommet;
+  int p=ma.nbArcs;
+  Filesuccesseur fs=alloc_mem_file_successeur(n,p);
   /*
   traitement parcours globale MatriceAdj
   parcours ligne par ligne MatriceAdj
   */
   int iaps=0;
   for(int s=0; s<n; s++){
-    fs.APS[s]=iaps;
+    fs.aps[s]=iaps;
     for(int t=0; t<n;t++){
-      if(ma.mat[s][t]==1){
-        fs.FS[iaps]=t;
+      if(ma.matrice[s][t]==1){
+        fs.fs[iaps]=t;
         iaps+=1;
       }
     }
   }
   //ajout sommet virtuelle
-  fs.APS[s]=iaps;
+  fs.aps[s]=iaps;
   return fs;
 }
