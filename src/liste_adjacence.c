@@ -1,3 +1,4 @@
+#include "../header/header.h"
 /*Exercice3*/
 //3)determiner le sommet qui possede plus de successeurs
 /*Pseudo code*/
@@ -20,19 +21,22 @@ func plus_de_succ(g)→entier
     renvoyer sMax
   FIN
 */
-int plus_de_succ(ListeAdj g){
-  int n=nombre_sommet(g);
+int longueur(int s){
+  return s+1-s;
+}
+int plus_de_succ(ListeAdjacence g){
+  int n=g.nbSommet;
   int nbSuccMax=0;
-  int l,sMax;
+  int l,sMax,nbSucc;
   for(int s=0; s<n; s++){
-    l=g.tab[s];
+    l=g.tabAdj[s]->somAdj;
     nbSucc=longueur(l);
     if(nbSucc>nbSuccMax){
       nbSuccMax=nbSucc;
-      smax=s;
+      sMax=s;
     }
   }
-  return smax;
+  return sMax;
 }
 /*Exercice4*/
 /*1
@@ -55,19 +59,19 @@ func conv_Fs_matAdj(ma)→ListeAdj
     renovyer la
   FIN
 */
-ListeAdj conv_Fs_matAdj(MatriceAdj ma){
-  int n=ma.nbsommet;
+/*ListeAdjacence conv_fs_matAdj(MatriceAdj ma){
+  int n=ma.nbSommet;
   ListeAdjacence la=alloc_mem_liste_adjacence(n);
   for(int s=0;s<n; s++){
     la.tabAdj[s]=init_liste();
     for (int t = n; t>0;  t--) {
       if(ma.matrice[s][t]==1){
-        la.tabAdj[s]=insert_tete(t,la.tab[s]);
+        insert_tete(t,(la.tabAdj[s]));
       }
     }
   }
   return la;
-}
+}*/
 /*
 
 */

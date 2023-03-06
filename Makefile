@@ -1,7 +1,24 @@
-CC=gcc
-CFLAGS= -Wall -g
-all:graphe-optimisation
-b-spline_3:src/main.o src/b-spline_3.o
-	$(CC) $(CFLAGS) src/graphe.c src/matrice_adjacence.c src/alloc_mem.c src/liste_adjacence.c src/file_successeur.c src/parcours.c -o exe
-clean :
-	rm -f all \#*\#
+CC = gcc
+CFLAGS = -Wall -g
+SRCDIR = src
+INCDIR = header
+OBJDIR = obj
+
+SRCS = $(wildcard $(SRCDIR)/graphe.c)
+OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
+DEPS = $(wildcard $(INCDIR)/*.h)
+
+TARGET = graphe
+
+.PHONY: all clean
+
+all: $(TARGET)
+
+$(TARGET): $(OBJS)
+	$(CC) $(CFLAGS) $^ -o $@
+
+$(OBJDIR)/%.o: $(SRCDIR)/%.c $(DEPS)
+	$(CC) $(CFLAGS) -I$(INCDIR) -c $< -o $@
+
+clean:
+	rm -rf $(OBJDIR)/*.o $(TARGET)

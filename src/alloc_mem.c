@@ -1,3 +1,4 @@
+#include "../header/header.h"
 /*__Allocation mémoire__*/
 // Allocation mémoire d'un tableau et libération
 /**
@@ -6,8 +7,8 @@ Erreur alloc tab
 void erreur_alloc_mem(){
   perror("\nErreur allocation memoire\n");
 }
-void alloc_mem_tab(int nbElt, int tab[]) {
-  tab = (int)malloc(sizeof(int )*nbElt);
+void alloc_mem_tab(int nbElt, int **tab) {
+  *tab =(int*)malloc(sizeof(int)*nbElt);
   if (*tab==NULL) {
     erreur_alloc_mem();
   }
@@ -18,38 +19,38 @@ void lib_mem_tab(int tab[]) {
 }
 // Allocation mémoire d'une matrice
 void alloc_mem_matrice(int nblignes, int nbcolones, int **mat) {
-  mat=(int**)malloc(sizeof(int)*(nblignes+1));
+  mat=malloc(sizeof(int*)*(nblignes+1));
   if (mat==NULL) {
     erreur_alloc_mem();
   }
-  for(int je=0; je < (nblignesg + 1); je++) {
-    alloc_mem_ab(nbcolones + 1, &(mat)[i]);
-    if ((mat)[i]==NULL) {
+  for(int je=0; je < (nblignes + 1); je++) {
+    mat[je]=malloc(sizeof(int)*(nbcolones+1));
+    if (mat[je]==NULL) {
       erreur_alloc_mem();
     }
   }
 }
 // Allocation mémoire d'une Liste Adjacentes
-ListAdjacence alloc_mem_liste_adjacence(int n) {
-  ListAdjacence la ;
-  la.nbsommet=n;
-  la.tabAdj=(Liste)malloc(sizeof(Liste)*n);
+ListeAdjacence alloc_mem_liste_adjacence(int n) {
+  ListeAdjacence la;
+  la.nbSommet=n;
+  la.tabAdj=(Liste*)malloc(sizeof(Liste)*n);
   return la;
 }
 // Allocation mémoire d'un File de successeur christou
-Filesuccesseur alloc_mem_file_successeur(int n, int p){
+Filesuccesseur alloc_mem_file_successeur(int n, int p, int tailleFs){
   Filesuccesseur fs;
-  fs.nbsommet=n;
+  fs.nbSommet=n;
   fs.nbarcs=p;
-  fs.FS=alloc_mem_tab[p];
-  fs.APS=alloc_mem_ab(n+1);
+  alloc_mem_tab(n+1,&fs.aps);
+  alloc_mem_tab(tailleFs, &fs.fs);
   return fs;
 }
 // Alllocation memoire tableau de listes des successeurs et prédécesseurs
-ListAdjSuccPred alloc_mem_liste_succ_pred(int n) {
-  ListAdjSuccPred lsp ;
+ListeAdjSuccPred alloc_mem_liste_succ_pred(int n) {
+  ListeAdjSuccPred lsp ;
   lsp.nbsommet = n ;
-  lsp.tabAdjSP = (ListeSuccPred)malloc(sizeof(ListeSuccPred)*n);
+  lsp.tabAdjSP =malloc(sizeof(ListePredSuc)*n);
   return lsp ;
 }
 /*Allocation memoire Pile */

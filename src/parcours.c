@@ -1,22 +1,71 @@
-void rec_parcours_profondeur(int s, int  visite[], nbSommetVisite, Graphe g){
+#include "../header/header.h"
+void rec_parcours_profondeur_matrice_adjacence(int s, int  visite[], int nbSommetVisite, MatriceAdj g){
   visite[s]=1;
   //traiter
   nbSommetVisite+=1;
   for(int t=0; t<s; t++){
     if(!visite[t]){
-      rec_parcours_profondeur(t, visite, nbSommetVisite, g);
+      rec_parcours_profondeur_matrice_adjacence(t, visite, nbSommetVisite, g);
     }
   }
 }
-void it_parcours_profondeur(int s, int visite[], Graphe g){
-  Pile p=initPile(); //flag a completer
+void it_parcours_profondeur_adjacence(int s, int visite[], MatriceAdj g){
+  Pile p=init_pile(); //flag a completer
   p=empiler(s, p);////flag a completer
-  int u;
+  int u,nbSommetVisite=0;
   while(!est_vide_pile(p)){
-    u =somet_pile(p);
-    p=depile(p);
+    u =sommet_pile(p);
+    p=depiler(p);
     if(!visite[u]){
-      traite(u)////flag a completer
+      //traite(u)////flag a completer
+      nbSommetVisite=+1;
+      visite[u]=1;
+      for (int t=0; t<g.nbSommet; t++){
+        if(!visite[t]==0 && g.matrice[s][t]==1){
+        p=empiler(t,p);
+      }
+    }
+  }
+}
+}
+void it_parcours_largeur_adjacence(int s, int visite[], MatriceAdj g){
+  File f=init_file(); //flag a completer
+  f=enfiler(s, f);////flag a completer
+  int u,nbSommetVisite=0;
+  while(!est_vide_file(f)){
+    u =sommet_file(f);
+    f=defiler(f);
+    if(!visite[u]){
+      //traite(u)////flag a completer
+      nbSommetVisite=+1;
+      visite[u]=1;
+      for (int t=0; t<g.nbSommet;t++){
+        if(!visite[t]==0&& g.matrice[s][t]){
+        f=enfiler(t,f);
+      }
+    }
+    }
+  }
+}
+void rec_parcours_profondeur_file_successeur(int s, int  visite[], int nbSommetVisite, Filesuccesseur g){
+  visite[s]=1;
+  //traiter
+  nbSommetVisite+=1;
+  for(int t=0; t<s; t++){
+    if(!visite[t]){
+      rec_parcours_profondeur_file_successeur(t, visite, nbSommetVisite, g);
+    }
+  }
+}
+void it_parcours_profondeur_file_successeur(int s, int visite[], Filesuccesseur g){
+  Pile p=init_pile(); //flag a completer
+  p=empiler(s, p);////flag a completer
+  int u,nbSommetVisite=0;
+  while(!est_vide_pile(p)){
+    u =sommet_pile(p);
+    p=depiler(p);
+    if(!visite[u]){
+      //traite(u)////flag a completer
       nbSommetVisite=+1;
       visite[u]=1;
       /*
@@ -29,58 +78,76 @@ void it_parcours_profondeur(int s, int visite[], Graphe g){
     }
   }
 }
-void it_parcours_largeur(int s, int visite[], Graphe g){
-  File f=initFile(); //flag a completer
-  p=emfiler(s, p);////flag a completer
-  int u;
+void it_parcours_largeur_file_successeur(int s, int visite[], Filesuccesseur g){
+  File f=init_file(); //flag a completer
+  f=enfiler(s, f);////flag a completer
+  int u,nbSommetVisite=0;
   while(!est_vide_file(f)){
-    u =somet_file(f);
-    f=depile(f);
+    u =sommet_file(f);
+    f=defiler(f);
     if(!visite[u]){
-      traite(u)////flag a completer
+      ///traite(u)////flag a completer
       nbSommetVisite=+1;
       visite[u]=1;
       /*
       pour t de dernier successeur au premier successeur de u faire{
         if(!visite[t]){
-        f=emfiler(t,f);
+        f=enfiler(t,f);
       }
     }
       */
     }
   }
 }
-void parcours_profondeur(int sd, graphe g){
-  int n←nbSommet(g);//flag a completer
-  int* visite;
-  visite=alloc_mem_ab();
-  for(int s=0; s<n; s++){
-    visite[s]=0;
+void rec_parcours_profondeur_liste_adjacence(int s, int  visite[], int nbSommetVisite, ListeAdjacence g){
+  visite[s]=1;
+  //traiter
+  nbSommetVisite+=1;
+  for(int t=0; t<s; t++){
+    if(!visite[t]){
+      rec_parcours_profondeur_liste_adjacence(t, visite, nbSommetVisite, g);
+    }
   }
-  int s=sd;
-  int nbSommetVisite=0;
-  while(nbSommetVisite<n){
-    if(!visite[0]){
-      /*recursive*/
-      rec_parcours_profondeur(s, visite, nbSommetVisite, g);
-      /*iterative*/
-      it_parcours_profondeur(s, visite, nbSommetVisite, g);
-  }
-  s=somesuivant(s,n,visite);
 }
-}
-void parcours_largeur(int sd, Graphe g){
-  int n=nbSommet(g);//flag a completer
-  int* visite;
-  visite=alloc_mem_tab();
-  for(int s=0; s<n; s++){
-    visite[s]=0;
+void it_parcours_profondeur_liste_adjacence(int s, int visite[], ListeAdjacence g){
+  Pile p=init_pile(); //flag a completer
+  p=empiler(s, p);////flag a completer
+  int u,nbSommetVisite=0;
+  while(!est_vide_pile(p)){
+    u =sommet_pile(p);
+    p=depiler(p);
+    if(!visite[u]){
+    //  traite(u)////flag a completer
+      nbSommetVisite=+1;
+      visite[u]=1;
+      /*
+      pour t de dernier successeur au premier successeur de u faire{
+        if(!visite[t]){
+        p=empiler(t,p);
+      }
+    }
+      */
+    }
   }
-  int s=sd;
-  int nbSommetVisite=0;
-  while(nbSommetVisite<n){
-    if(!visite[s]){
-      it_parcours_largeur(s, visite, nbSommetVisite, g);
+}
+void it_parcours_largeur_liste_adjacence(int s, int visite[], ListeAdjacence g){
+  File f=init_file(); //flag a completer
+  f=enfiler(s, f);////flag a completer
+  int u,nbSommetVisite=0;
+  while(!est_vide_file(f)){
+    u =sommet_file(f);
+    f=defiler(f);
+    if(!visite[u]){
+      //traite(u)////flag a completer
+      nbSommetVisite=+1;
+      visite[u]=1;
+      /*
+      pour t de dernier successeur au premier successeur de u faire{
+        if(!visite[t]){
+        f=enfiler(t,f);
+      }
+    }
+      */
     }
   }
 }

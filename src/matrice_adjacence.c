@@ -1,5 +1,6 @@
+#include "../header/header.h"
 int nombre_sommet(MatriceAdj g){
-  return g.nbsommet;
+  return g.nbSommet;
 }
 /*
 Exercice3 1)
@@ -48,18 +49,18 @@ procedure liste_succsseur(s, g)→vide
 void liste_successeur(MatriceAdj g,int s){
   int n;
   Liste listeSuccesseurs;
-  for(int i=0; i<n; i++){
+  for(int t=0; t<n; t++){
     n=nombre_sommet(g);
     if(g.matrice[s][t]==1){
-      insert_triee(elt, listeSuccesseurs);
+      insert_triee(t, listeSuccesseurs);
     }
   }
 }
 //c)b)determiner les predecesseurs d'un sommet donné
 void liste_predecesseur(MatriceAdj g,int s){
   int n;
-  int Liste listePredecesseurs;
-  for(int i=0; i<n; i++){
+  Liste listePredecesseurs;
+  for(int t=0; t<n; t++){
     n=nombre_sommet(g);
     if(g.matrice[t][s]==1){
       insert_triee(t, listePredecesseurs);
