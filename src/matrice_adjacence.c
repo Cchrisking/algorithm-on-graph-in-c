@@ -116,3 +116,30 @@ MatIncidColCol MatIncToMatIncColcol(MatIncidente mi){
   }
   return micol;
 }
+
+/une matrice d’incidence à une autre représentation par une matrice d’incidence col par col./
+MatIncidLigLig MatIncToMatIncLigLig(MatIncidente mi){
+  MatIncidLigLig milig;
+  milig.nbArcs=mi.nbArcs;
+  milig.nbSom=mi.nbSom;
+  int n=mi.nbSom;
+  int iaps=1;
+  int ias=1;
+  allocTab(milig.nbArcs, &milig.AS);
+  allocTab(milig.nbArcs, &milig.FS);
+  allocTab(milig.nbSom, &milig.APS);
+  for(int s=1;s<=n;s++){
+    milig.FS[s]=iaps;
+    for(int a=1;a<=mi.nbArcs;a++){
+      if(mi.mat[s][a]==-1){
+        milig.APS[iaps]=a;
+        iaps++;
+      }
+      if(mi.mat[s][a]==1){
+        milig.AS[a]=s;
+      }
+    }
+  }
+  milig.FS[n+1]=iaps;
+  return milig;
+}
