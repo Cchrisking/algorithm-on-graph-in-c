@@ -1,3 +1,7 @@
+#include "../header/header.h"
+int nombre_sommet(MatriceAdj g){
+  return g.nbSommet;
+}
 /*
 Exercice3 1)
 un graphe orienté represeter par sa matrice d'adjecence MatriceAdj*/
@@ -21,16 +25,17 @@ int boucle(MatriceAdj g, int n){
   }
   if(g.matrice[n][n]==1){
     return 1;
+  }else{
+    return boucle(g, n-1);
   }
-  return boucle(g, n-1);
 }
 //b)determiner les successeurs d'un sommet donné
 /*Pseudo code*/
 /*
 procedure liste_succsseur(s, g)→vide
   parametre formelle:
-  s:graphe(E)
-  g:sommet(E)
+  s:sommet(E)
+  g:graphe(E) Mtrice adjacence
   Debut:
     pour i variant de 1 à n faire
       n←nbsommet(g)
@@ -41,22 +46,24 @@ procedure liste_succsseur(s, g)→vide
     Finpour
     FIN
 */
-void liste_successeur(int s, MatriceAdj g){
+void liste_successeur(MatriceAdj g,int s){
   int n;
-  for(int i=0; i<n; i++){
+  Liste listeSuccesseurs;
+  for(int t=0; t<n; t++){
     n=nombre_sommet(g);
-    if(g.matrice[s][t]){
-      traiter_sommet(t);
+    if(g.matrice[s][t]==1){
+      insert_triee(t, listeSuccesseurs);
     }
   }
 }
 //c)b)determiner les predecesseurs d'un sommet donné
-void liste_predecesseur(int s, MatriceAdj g){
+void liste_predecesseur(MatriceAdj g,int s){
   int n;
-  for(int i=0; i<n; i++){
+  Liste listePredecesseurs;
+  for(int t=0; t<n; t++){
     n=nombre_sommet(g);
-    if(g.matrice[t][s]){
-      traiter_sommet(t);
+    if(g.matrice[t][s]==1){
+      insert_triee(t, listePredecesseurs);
     }
   }
 }
