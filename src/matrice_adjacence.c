@@ -60,3 +60,52 @@ void liste_predecesseur(int s, MatriceAdj g){
     }
   }
 }
+
+/*une matrice d’incidence à une autre représentation par une matrice adjacente*/
+MatAdjacence MatIncToMatAdj(MatIncidente mi) {
+  int n=mi.nbSom;
+  int arcs=mi.nbArcs;
+  MatAdjacence g;
+  int s,t;
+  int **mat;
+  allocMat(n,n,&mat);
+  for (int i = 0; i <= n; i++){
+    for (int j = 0; j <= n; j++){
+      mat[i][j]=0;
+    }
+  }
+  g.mat=mat;
+  g.nbSom=n;
+  for (int i = 1; i <= arcs; i++){
+    for (int j = 1; j <= n; j++){
+      if (mi.mat[j][i]==1){
+        t=j;
+      }
+      if (mi.mat[j][i]==-1){
+        s=j;
+      }
+    }
+    g.mat[s][t]=1;
+  }
+  return g;
+}
+/*une matrice d’incidence à une autre représentation par une matrice d’incidence col par col */
+MatIncidColCol MatIncToMatIncColcol(MatIncidente mi){
+  int n=mi.nbSom;
+  MatIncidColCol micol;
+  micol.nbArcs=mi.nbArcs;
+  micol.nbSom=mi.nbSom;
+  allocTab(micol.nbArcs, &micol.alpha);
+  allocTab(micol.nbArcs, &micol.beta);
+  for(int i=1;i<=mi.nbArcs;i++){
+    for(int j=1;j<=n;j++){
+      if(mi.mat[j][i]==1){
+        micol.beta[i]=j;
+      }
+      if(mi.mat[j][i]==-1){
+        micol.alpha[i]=j;
+      }
+    }
+  }
+  return micol;
+}
