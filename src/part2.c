@@ -529,7 +529,7 @@ func conv_Fs_matAdj(ma)→ListeAdj
     renovyer la
   FIN
 */
-ListeAdjacence conv_fs_matAdj(MatriceAdj ma){
+/*ListeAdjacence conv_fs_matAdj(MatriceAdj ma){
   int n=ma.nbSommet;
   ListeAdjacence la=alloc_mem_liste_adjacence(n);
   for(int s=0;s<n; s++){
@@ -541,5 +541,5 @@ ListeAdjacence conv_fs_matAdj(MatriceAdj ma){
     }
   }
   return la;
-}
+}*/
 /*FIN LISTE ADJACENCE*/

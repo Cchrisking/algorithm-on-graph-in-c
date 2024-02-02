@@ -1,7 +1,4 @@
 #include "../header/header.h"
-int nombre_sommet(MatriceAdj g){
-  return g.nbSommet;
-}
 /*
 Exercice3 1)
 un graphe orienté represeter par sa matrice d'adjecence MatriceAdj*/
@@ -56,7 +53,9 @@ void liste_successeur(MatriceAdj g,int s){
     }
   }
 }
-//c)b)determiner les predecesseurs d'un sommet donné
+//c)b)determiner les pr
+/*prototype fonction*/
+/*fi prototype*/edecesseurs d'un sommet donné
 void liste_predecesseur(MatriceAdj g,int s){
   int n;
   Liste listePredecesseurs;
@@ -142,4 +141,11 @@ MatIncidLigLig MatIncToMatIncLigLig(MatIncidente mi){
   }
   milig.FS[n+1]=iaps;
   return milig;
+}
+void affiche_matrice_adjacence(MatriceAdj m){
+  for (int s = 0; s < m.nbSommet; s++) {
+    for(int t=0; t<m.nbSommet; t++){
+      printf("%d\n",m.matrice[s][t]);
+    }
+  }
 }

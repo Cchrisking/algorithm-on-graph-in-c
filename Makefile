@@ -4,7 +4,7 @@ SRCDIR = src
 INCDIR = header
 OBJDIR = obj
 
-SRCS = $(wildcard $(SRCDIR)/graphe.c)
+SRCS = $(wildcard $(SRCDIR)/*.c)
 OBJS = $(patsubst $(SRCDIR)/%.c,$(OBJDIR)/%.o,$(SRCS))
 DEPS = $(wildcard $(INCDIR)/*.h)
 
