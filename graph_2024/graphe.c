@@ -12,6 +12,8 @@ int isloop(MatriceAdjacence g, int n){
   }
 }
 int main(int argc, char const *argv[]) {
-  
+  MatriceAdjacence g;
+  g.nbSommet=3;
+  array_2dmemAllocation(g.nbSommet,g.nbSommet,g.matrice);
   return 0;
 }
