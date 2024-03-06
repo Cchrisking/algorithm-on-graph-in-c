@@ -117,7 +117,7 @@ MatIncidColCol MatIncToMatIncColcol(MatIncidente mi){
   return micol;
 }
 
-/une matrice d’incidence à une autre représentation par une matrice d’incidence col par col./
+/*une matrice d’incidence à une autre représentation par une matrice d’incidence col par col.*/
 MatIncidLigLig MatIncToMatIncLigLig(MatIncidente mi){
   MatIncidLigLig milig;
   milig.nbArcs=mi.nbArcs;

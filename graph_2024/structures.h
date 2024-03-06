@@ -2,7 +2,7 @@
 #include <stdlib.h>
 typedef struct{
   int nbSommet;
-  int nbarc;
+  int nbArcs;
   int **matrice;
 }MatrIncidente;
 typedef struct{
@@ -13,31 +13,32 @@ typedef struct{
 /*File de successeur*/
 typedef struct{
   int nbSommet;
-  int nbarc;
+  int nbArcs;
   int *fs, aps;
 }FileSucc;
 /*Liste d'adjacence*/
 typedef struct{
   int somsuccesseur;
-  int link;
+  int suivant;
 }Liste;
 typedef struct{
   int nbSommet;
   Liste* tabadj;
 }ListeAdjacence;
+/*le tableau de listes des successeurs et prédécesseurs*/
+
 /*Liste principale*/
-/*typedef struct cellule ListeSuccesseur;
-typedef struct listePrincipale *ListePrincipale;
-struct listePrincipale{
-  int nbSommet;
-  ListePrincipale suivant; //suivant liste principale
-  ListeSuccesseur succeseurs; // suivant liste succeseur
+typedef struct cellule *ListeSuccesseur ;
+typedef struct listPrincipale *ListePrincipale ;
+struct listPrincipale {
+int numSom ;
+ListePrincipale suivant ;
+ListeSuccesseur succeseur ;
 };
 struct cellule{
-   ListePrincipale successeur;
-   ListeSuccesseur suivant;
+  ListePrincipale succeseur ;
+  ListeSuccesseur suivant ;
 };
-*/
 /*Liste  creuse*/
 typedef struct cellulecreuse{
   int sommetsuccesseur;
@@ -53,7 +54,7 @@ typedef struct matrice{
 /*Representation colone par colone*/
 typedef struct{
   int nbSommet;
-  int nbarcs;
+  int nbArcs;
   int *alpha;
   int *beta;
 }Matricecolcol;
@@ -66,5 +67,5 @@ typedef struct{
   int *as;
 }matricelignlign;
 /*Memory allocation*/
-void array_memAllocation(int n, int* matrice);
+void array_memAllocation(int n, int** matrice);
 void array_2dmemAllocation(int colone, int ligne, int** matrice);
