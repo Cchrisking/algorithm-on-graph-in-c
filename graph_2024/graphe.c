@@ -6,11 +6,11 @@ TOOLS DEFINITION
 */
 /*Memory allocation*/
 void array_memAllocation(int size, int** matrice){
-  *matrice=malloc(sizeof(int)*size);
+  matrice=malloc(sizeof(int*)*size);
   if(matrice==NULL){
-    printf("Array memory allocation failed");
+    printf("Array memory allocation failed\n");
   }else{
-    printf("succesfull array memory allocation");
+    printf("succesfull array memory allocation 1D\n");
   }
 }
 void array_2dmemAllocation(int row, int column, int** matrice){
@@ -18,9 +18,10 @@ void array_2dmemAllocation(int row, int column, int** matrice){
   if(matrice==NULL){
     printf("Array memory allocation failed");
   }else{
-    printf("succesfull array memory allocation");
+    printf("succesfull array memory allocation\n");
   }
     for(int l=0; l<row; l++){
+      printf("hello %d\n", l);
       array_memAllocation(column, &(matrice[l]));
     }
   }
@@ -61,6 +62,7 @@ int*  liste_predecesseur(MatriceAdjacence g, int s){
       listep[i]=t;
       i+=1;
     }
+  printf("hello 1\n");
   }
   return listep;
 }
@@ -69,7 +71,7 @@ int main(int argc, char const *argv[]) {
   MatrIncidente mi;
   mi.nbSommet=4;
   mi.nbArcs=5;
-  int **matrice;
+  int** matrice;
   g.nbSommet=3;
   /*
   -----------------------------------------------------------------------------
@@ -78,9 +80,14 @@ int main(int argc, char const *argv[]) {
   @array[][]
   -----------------------------------------------------------------------------
   */
-  array_2dmemAllocation(g.nbSommet, g.nbSommet, matrice);
+  printf("step here\n");
+  array_memAllocation(g.nbSommet, matrice);
+  for(int row=0; row<g.nbSommet; row++){
+    array_memAllocation(g.nbSommet, &(matrice[row]));
+  }
   g.matrice=matrice;
   g.matrice[0][0]=1;
+  printf("hello in main\n");
   g.matrice[0][1]=1;
   g.matrice[0][2]=1;
   g.matrice[1][0]=1;
@@ -89,6 +96,7 @@ int main(int argc, char const *argv[]) {
   g.matrice[2][0]=0;
   g.matrice[2][1]=1;
   g.matrice[2][2]=0;
+  printf("worked\n");
   for(int row=0; row<g.nbSommet; row++){
     for(int column=0; column<g.nbSommet; column++){
       printf("[%d][%d]: %d\n", row, column, g.matrice[row][column]);
