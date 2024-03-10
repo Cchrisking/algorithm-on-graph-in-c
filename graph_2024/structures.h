@@ -17,25 +17,33 @@ typedef struct{
   int *fs, aps;
 }FileSucc;
 /*Liste d'adjacence*/
-typedef struct{
-  int somsuccesseur;
-  int suivant;
-}Liste;
+typedef struct cellule{
+  int sommetAdja;
+  struct cellule* suivant;
+}*Liste;
 typedef struct{
   int nbSommet;
   Liste* tabadj;
 }ListeAdjacence;
+typedef struct{
+  Liste successeurs;
+  Liste predecesseurs;
+}ListePS;
+typedef struct{
+  int nbSommet;
+  ListePS* tabAdj;
+}ListeAdj2D;
 /*le tableau de listes des successeurs et prédécesseurs*/
 
 /*Liste principale*/
-typedef struct cellule *ListeSuccesseur ;
+typedef struct cellulePrincipale *ListeSuccesseur ;
 typedef struct listPrincipale *ListePrincipale ;
 struct listPrincipale {
 int numSom ;
 ListePrincipale suivant ;
 ListeSuccesseur succeseur ;
 };
-struct cellule{
+struct cellulePrincipale{
   ListePrincipale succeseur ;
   ListeSuccesseur suivant ;
 };

@@ -67,7 +67,6 @@ void liste_predecesseur(MatriceAdj g,int s){
     }
   }
 }
-
 /*une matrice d’incidence à une autre représentation par une matrice adjacente*/
 MatAdjacence MatIncToMatAdj(MatIncidente mi) {
   int n=mi.nbSom;

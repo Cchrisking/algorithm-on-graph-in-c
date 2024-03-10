@@ -6,8 +6,8 @@ TOOLS DEFINITION
 */
 /*Memory allocation*/
 void array_memAllocation(int size, int** matrice){
-  matrice=malloc(sizeof(int*)*size);
-  if(matrice==NULL){
+  matrice=malloc(sizeof(int)*size);
+  if(*matrice==NULL){
     printf("Array memory allocation failed\n");
   }else{
     printf("succesfull array memory allocation 1D\n");
@@ -15,16 +15,15 @@ void array_memAllocation(int size, int** matrice){
 }
 void array_2dmemAllocation(int row, int column, int** matrice){
   array_memAllocation(row,matrice);
-  if(matrice==NULL){
-    printf("Array memory allocation failed");
-  }else{
-    printf("succesfull array memory allocation\n");
-  }
     for(int l=0; l<row; l++){
-      printf("hello %d\n", l);
-      array_memAllocation(column, &(matrice[l]));
+      printf("succesfull 2D alocation for row %d\n", l);
+      array_memAllocation(column, &matrice[l]);
     }
   }
+int* allocate_array(int size){
+  int* array=malloc(sizeof(int)*size);
+  return array;
+}
 /*
 --------------------------------------------------------------------------------
 END OF TOOLS DEFINITION
@@ -62,7 +61,6 @@ int*  liste_predecesseur(MatriceAdjacence g, int s){
       listep[i]=t;
       i+=1;
     }
-  printf("hello 1\n");
   }
   return listep;
 }
@@ -72,30 +70,33 @@ int main(int argc, char const *argv[]) {
   mi.nbSommet=4;
   mi.nbArcs=5;
   int** matrice;
+  int** mincindent;
   g.nbSommet=3;
   /*
   -----------------------------------------------------------------------------
-  @row
-  @column
-  @array[][]
+  Memmory allocation for arrays
   -----------------------------------------------------------------------------
   */
-  printf("step here\n");
-  array_memAllocation(g.nbSommet, matrice);
-  for(int row=0; row<g.nbSommet; row++){
-    array_memAllocation(g.nbSommet, &(matrice[row]));
+  matrice=malloc(sizeof(int*)*g.nbSommet);
+  for(int row=0;row<g.nbSommet;row++){
+    matrice[row]=allocate_array(g.nbSommet);
   }
+  mincindent=malloc(sizeof(int*)*mi.nbSommet);
+  for(int row=0;row<mi.nbSommet;row++){
+    matrice[row]=allocate_array(mi.nbArcs);
+  }
+  printf("Memory allocation succesfull !\n");
+  matrice[0][0]=1;
+  matrice[0][1]=1;
+  matrice[0][2]=1;
+  matrice[1][0]=1;
+  matrice[1][1]=0;
+  matrice[1][2]=0;
+  matrice[2][0]=0;
+  matrice[2][1]=1;
+  matrice[2][2]=0;
+  printf("if you can see this it's working you can acceess 2D data!\n");
   g.matrice=matrice;
-  g.matrice[0][0]=1;
-  printf("hello in main\n");
-  g.matrice[0][1]=1;
-  g.matrice[0][2]=1;
-  g.matrice[1][0]=1;
-  g.matrice[1][1]=0;
-  g.matrice[1][2]=0;
-  g.matrice[2][0]=0;
-  g.matrice[2][1]=1;
-  g.matrice[2][2]=0;
   printf("worked\n");
   for(int row=0; row<g.nbSommet; row++){
     for(int column=0; column<g.nbSommet; column++){
@@ -115,8 +116,5 @@ int main(int argc, char const *argv[]) {
   for (int i = 0; i < g.nbSommet; i++) {
     printf("predeseur %d -> 1\n", listep[i]);
   }
-  /*Matrice incidente*/
-  int** matincidente;
-  //array_2dmemAllocation(mi.nbSommet, mi.nbArcs, matincidente);
   return 0;
 }
