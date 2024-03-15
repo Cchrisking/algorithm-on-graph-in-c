@@ -6,7 +6,7 @@ TOOLS DEFINITION
 */
 /*Memory allocation*/
 void array_memAllocation(int size, int** matrice){
-  matrice=malloc(sizeof(int)*size);
+  *matrice=malloc(sizeof(int)*size);
   if(*matrice==NULL){
     printf("Array memory allocation failed\n");
   }else{
@@ -23,6 +23,47 @@ void array_2dmemAllocation(int row, int column, int** matrice){
 int* allocate_array(int size){
   int* array=malloc(sizeof(int)*size);
   return array;
+}
+/*insert element in linked list*/
+Liste init_list(){
+  return NULL;
+}
+Liste new_node(int e){
+  Liste node=(Liste)malloc(sizeof(struct cellule));
+  node->sommetAdja=e;
+  return node;
+}
+Liste last_node(Liste liste){
+  Liste current,last;
+  current=liste;
+  while(current!=NULL){
+    last=current;
+    current=current->suivant;
+  }
+  return last;
+}
+void push(int e, Liste* liste){
+  Liste node=new_node(e);
+  node->suivant=*liste;
+  *liste=node;
+}
+void push_back(int sommet, Liste* liste){
+  Liste node;
+  Liste last=(Liste)malloc(sizeof(struct cellule));
+  if(*liste==NULL){
+    push(sommet, liste);
+  }else{
+    node=new_node(sommet);
+    last=last_node(*liste);
+    node->suivant=NULL;
+    last->suivant=node;
+  }
+}
+void liste_traversal(Liste liste){
+  if(liste!=NULL){
+    printf("%d ->", liste->sommetAdja);
+    liste_traversal(liste->suivant);
+  }
 }
 /*
 --------------------------------------------------------------------------------
@@ -63,6 +104,16 @@ int*  liste_predecesseur(MatriceAdjacence g, int s){
     }
   }
   return listep;
+}
+void liste_successeur_chainee(int** matrice,int row, int column, int s, Liste* succeseurs){
+  int i=0;
+  Liste* liste;
+  for(int t=0; t<row; t++){
+    if(matrice[s][t]==1){
+      push_back(i, succeseurs);
+    }
+    i++;
+  }
 }
 int main(int argc, char const *argv[]) {
   MatriceAdjacence g;
@@ -115,6 +166,26 @@ int main(int argc, char const *argv[]) {
   int *listep=liste_predecesseur(g, 1);
   for (int i = 0; i < g.nbSommet; i++) {
     printf("predeseur %d -> 1\n", listep[i]);
+  }
+  Liste successeurs=init_list();
+  for (int i = 0; i < g.nbSommet; i++) {
+    printf("succeseur: %d:",i);
+    liste_successeur_chainee(g.matrice, g.nbSommet, g.nbSommet,i,&successeurs);
+    liste_traversal(successeurs);
+    printf("\n");
+    successeurs=init_list();
+  }
+  array_2dmemAllocation(mi.nbSommet,mi.nbArcs, mincindent);
+  for(int row=0; row<mi.nbSommet; row++){
+    for(int column=0; column<mi.nbArcs; column++){
+      mincindent[row][column]=0;
+    }
+  }
+  for(int row=0; row<mi.nbSommet; row++){
+    for(int column=0; column<mi.nbArcs; column++){
+      printf("%d",mincindent[row][column]);
+    }
+    printf("\n");
   }
   return 0;
 }
