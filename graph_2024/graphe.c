@@ -8,15 +8,24 @@ TOOLS DEFINITION
 void array_memAllocation(int size, int** matrice){
   *matrice=malloc(sizeof(int)*size);
   if(*matrice==NULL){
+    /*
+    add this to debug function
     printf("Array memory allocation failed\n");
+    */
   }else{
+    /*
+    add this to debug function
     printf("succesfull array memory allocation 1D\n");
+    */
   }
 }
 void array_2dmemAllocation(int row, int column, int** matrice){
   array_memAllocation(row,matrice);
     for(int l=0; l<row; l++){
+      /*
+      add this to debug function
       printf("succesfull 2D alocation for row %d\n", l);
+      */
       array_memAllocation(column, &matrice[l]);
     }
   }
@@ -113,6 +122,29 @@ void liste_successeur_chainee(int** matrice,int row, int column, int s, Liste* s
       push_back(i, succeseurs);
     }
     i++;
+  }
+}
+void convert_mi_ma(MatrIncidente gmi, int** ma){
+  for(int row=0; row<gmi.nbSommet; row++){
+    for(int column=0; column<gmi.nbArcs; column++){
+      if( gmi.matrice[row][column]==1){
+        /*
+        TODO CONVERSION
+        */
+      }
+    }
+  }
+}
+void convert_ma_mi(MatriceAdjacence gma, int** mi){
+  for(int row=0; row<gma.nbSommet; row++){
+    for(int column=0; column<gma.nbSommet; column++){
+      if( gma.matrice[row][column]==1){
+        /*
+        TO DO CONVERSION
+        */
+        mi[row][column]=1;
+      }
+    }
   }
 }
 int main(int argc, char const *argv[]) {
